@@ -38,7 +38,7 @@ agent = create_agent(
 
 def streamlit_app():
     """Run a basic Streamlit chat interface for the LangChain agent."""
-    st.title("Hello Bubu ❤️, This Assistant is created by your beloved Dudu 😘") 
+    st.title("Web Search Assistant")
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -47,14 +47,14 @@ def streamlit_app():
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    if prompt := st.chat_input("Ask me Bubu"):
+    if prompt := st.chat_input("Ask me anything"):
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
 
         try:
             with st.chat_message("assistant"):
-                with st.spinner("Wait for answer,  meanwhile dudu is missing you 😘"):
+                with st.spinner("Thinking..."):
                     result = agent.invoke({"messages": st.session_state.messages})
                 answer = result["messages"][-1].content
                 st.markdown(answer)
